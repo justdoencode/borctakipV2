@@ -7,7 +7,19 @@
 <div class="col-lg-12 grid-margin stretch-card">
   <div class="card">
     <div class="card-body">
+      @if(session()->has('errorMessage'))
+          <div class="alert alert-danger">
+            {{ session()->get('errorMessage') }}
+          </div>
+      @endif
+      @if(session()->has('successMessage'))
+          <div class="alert alert-success">
+            {{ session()->get('successMessage') }}
+          </div>
+      @endif
       <h4 class="card-title"><b>Alacak Detay</b></h4>
+      <form method="post" action="{{route('alacakDuzenle')}}">
+        @csrf
       <div class="table-responsive">
         <table class="table table-bordered">
           <thead>
@@ -45,15 +57,18 @@
             </tr>
           </tbody>
         </table>
-        <div class="form-group" method='post' action=''>
+        <div class="form-group">
           <div class="input-group">
             <div col-md-6>
-              <input placeholder="Alacak Miktarını Düzenle" class="form-control" type="number" name="miktar">
+              <div style="display:none;"></div>
+              <input placeholder="Alacak Miktarını Güncelle" class="form-control" type="number" name="miktar">
+              <input class="form-control" type="number" name="alacakId" value="{{$alacak->alacak_id}}" style="display:none;"><!--Alacak id almak için-->
             </div>
-            <a type="submit" class="btn btn-outline-success" href="#">Alacak Miktarını Kaydet</a>
+            <input type="submit" class="btn btn-outline-success" value="Güncelle">
           </div>
         </div>
       </div>
+    </form>
     </div>
   </div>
 </div>

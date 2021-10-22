@@ -75,4 +75,5 @@ Route::get('/paraturusil/{para_turu_id}',[VeritabaniController::class,'paraTuruS
 
 
 //Diğer İşlemler
-Route::post('/borduzenle',[VeritabaniController::class,'borcDuzenle'])->name('borcDuzenle');//Para Türleri Sayfası
+Route::post('/borcduzenle',[VeritabaniController::class,'borcDuzenle'])->name('borcDuzenle');//Borç Düzenleme İşlemi
+Route::post('/alacakduzenle',[VeritabaniController::class,'alacakDuzenle'])->name('alacakDuzenle');//Alacak Düzenleme İşlemi

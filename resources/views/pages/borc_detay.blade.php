@@ -60,8 +60,9 @@
         <div class="form-group">
           <div class="input-group">
             <div col-md-6>
+              <div style="display:none;"></div>
               <input placeholder="Borç Miktarını Güncelle" class="form-control" type="number" name="miktar">
-              <input class="form-control" type="number" name="id" value="{{$borc->borc_id}}" style="display:none;"><!--Borç id almak için-->
+              <input class="form-control" type="number" name="borcId" value="{{$borc->borc_id}}" style="display:none;"><!--Borç id almak için-->
             </div>
             <input type="submit" class="btn btn-outline-success" value="Güncelle">
           </div>

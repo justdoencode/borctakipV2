@@ -42,8 +42,6 @@
 
                         <td><a type="submit" class="btn btn-outline-danger" href="{{route('cariHesapSil',['cari_hesap_id'=>$cariHesap->cari_hesap_id])}}">Sil</a></td>
                         <td><a type="submit" class="btn btn-outline-info" href="{{route('cariHesapDetayPage',['cari_hesap_id'=>$cariHesap->cari_hesap_id])}}">Daha Fazla</a></td>
-
-
                       </tr>
                     @endforeach
             </tbody>

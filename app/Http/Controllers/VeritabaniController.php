@@ -170,7 +170,13 @@ public function cariHesapDetayListele(int $cari_hesap_id){
     array_push($toplamAlacaklar,$toplamAlacak);
   }
   $cariHesap=CariHesaplarModel::find($cari_hesap_id);
-  return view('pages.cari_hesap_detay',array('cariHesap'=>$cariHesap,'paraTurleri'=>$paraTurleri,'toplamBorclar'=>$toplamBorclar,'toplamAlacaklar'=>$toplamAlacaklar));
+
+  $borclar=BorclarModel::Where('cari_hesap_id',$cari_hesap_id)->get();
+  $alacaklar=AlacaklarModel::Where('cari_hesap_id',$cari_hesap_id)->get();
+
+  return view('pages.cari_hesap_detay',array('cariHesap'=>$cariHesap,
+  'paraTurleri'=>$paraTurleri,'toplamBorclar'=>$toplamBorclar,
+  'toplamAlacaklar'=>$toplamAlacaklar,'alacaklar'=>$alacaklar,'borclar'=>$borclar));
 }
 
 
@@ -245,9 +251,15 @@ public function alacakDetayListele(int $alacak_id){
 
     //DİĞER İŞLEMLER
 
-    public function borcDuzenle(Request $miktar){
-      BorclarModel::where('borc_id',$miktar->id)->update(['borc_miktari',$miktar->miktar]);
+    //Borç Düzenleme İşlemi
+    public function borcDuzenle(Request $veriler){
+      BorclarModel::Where('borc_id',$veriler->borcId)->update(['borc_miktari'=>$veriler->miktar]);
       return redirect()->back()->with('successMessage', 'Borç Miktarı Başarıyla Güncellendi');
+    }
+    //Alcak Düzenleme İşlemi
+    public function alacakDuzenle(Request $veriler){
+      AlacaklarModel::Where('alacak_id',$veriler->alacakId)->update(['alacak_miktari'=>$veriler->miktar]);
+      return redirect()->back()->with('successMessage', 'Alacak Miktarı Başarıyla Güncellendi');
     }
 
 }
