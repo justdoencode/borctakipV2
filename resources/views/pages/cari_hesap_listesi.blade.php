@@ -40,7 +40,7 @@
                         <td>{{$cariHesap->kullanici_kurum}}</td>
                         <td>{{$cariHesap->kullanici_telefon}}</td>
 
-                        <td><a type="submit" class="btn btn-outline-danger" href="{{route('cariHesapSil',['cari_hesap_id'=>$cariHesap->cari_hesap_id])}}">Sil</a></td>
+                        <td><a onclick="return confirm('Cari Hesap Silinecek!')" type="submit" class="btn btn-outline-danger" href="{{route('cariHesapSil',['cari_hesap_id'=>$cariHesap->cari_hesap_id])}}">Sil</a></td>
                         <td><a type="submit" class="btn btn-outline-info" href="{{route('cariHesapDetayPage',['cari_hesap_id'=>$cariHesap->cari_hesap_id])}}">Daha Fazla</a></td>
                       </tr>
                     @endforeach

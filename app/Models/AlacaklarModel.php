@@ -12,7 +12,7 @@ class AlacaklarModel extends Model
 
     protected $primaryKey='alacak_id';
     protected $table='Alacaklar';
-    protected $fillable=['cari_hesap_id','alacak_baslangic_tarihi','alacak_bitis_tarihi','para_turu_id','alacak_miktari','aciklama'];
+    protected $fillable=['user_id','cari_hesap_id','alacak_baslangic_tarihi','alacak_bitis_tarihi','para_turu_id','alacak_miktari','aciklama'];
 
 
     public function getCariHesap(){

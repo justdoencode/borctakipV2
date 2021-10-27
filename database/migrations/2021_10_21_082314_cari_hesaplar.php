@@ -15,6 +15,7 @@ class CariHesaplar extends Migration
     {
       Schema::create('CariHesaplar', function (Blueprint $table) {
           $table->increments('cari_hesap_id');
+          $table->integer('user_id');
           $table->string('kullanici_ad',50);
           $table->string('kullanici_soyad',50);
           $table->string('kullanici_telefon',12);

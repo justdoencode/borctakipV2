@@ -42,7 +42,7 @@
                         <td>{{$borc->borc_miktari}}</td>
                         <td>{{$borc->getParaTuru->para_turu}}</td>
 
-                        <td><a type="submit" class="btn btn-outline-danger" href="{{route('borcSil',['borc_id'=>$borc->borc_id])}}">Sil</a></td>
+                        <td><a onclick="return confirm('Borç Silinecek!')" type="submit" class="btn btn-outline-danger" href="{{route('borcSil',['borc_id'=>$borc->borc_id])}}">Sil</a></td>
                         <td><a type="submit" class="btn btn-outline-info" href="{{route('borcDetayPage',['borc_id'=>$borc->borc_id])}}">Daha Fazla</a></td>
 
 

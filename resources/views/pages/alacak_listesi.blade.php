@@ -42,7 +42,7 @@
                         <td>{{$alacak->alacak_miktari}}</td>
                         <td>{{$alacak->getParaTuru->para_turu}}</td>
 
-                        <td><a type="submit" class="btn btn-outline-danger" href="{{route('alacakSil',['alacak_id'=>$alacak->alacak_id])}}">Sil</a></td>
+                        <td><a onclick="return confirm('Alacak Silinecek!')" type="submit" class="btn btn-outline-danger" href="{{route('alacakSil',['alacak_id'=>$alacak->alacak_id])}}">Sil</a></td>
                         <td><a type="submit" class="btn btn-outline-info" href="{{route('alacakDetayPage',['alacak_id'=>$alacak->alacak_id])}}">Daha Fazla</a></td>
 
 

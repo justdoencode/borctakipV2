@@ -15,6 +15,7 @@ class Alacaklar extends Migration
     {
       Schema::create('Alacaklar', function (Blueprint $table) {
         $table->increments('alacak_id');
+        $table->integer('user_id');
         $table->integer('cari_hesap_id');
         $table->date('alacak_baslangic_tarihi');
         $table->date('alacak_bitis_tarihi');

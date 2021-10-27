@@ -17,9 +17,9 @@ class VeritabaniController extends Controller
     public function cariHesapEkle(Request $hesap){
 
       $telefonData=CariHesaplarModel::firstWhere('kullanici_telefon',$hesap->cari_telefon);
-
       if(empty($telefonData)==true){
         CariHesaplarModel::create([
+          "user_id"=>auth()->user()->user_id,
           "kullanici_ad"=>$hesap->cari_ad,
           "kullanici_soyad"=>$hesap->cari_soyad,
           "kullanici_telefon"=>$hesap->cari_telefon,
@@ -38,6 +38,7 @@ class VeritabaniController extends Controller
     //Borc Ekleme
     public function borcEkle(Request $borc){
       BorclarModel::create([
+        "user_id"=>auth()->user()->user_id,
         "cari_hesap_id"=>$borc->hesapId,
         "borc_baslangic_tarihi"=>$borc->borcBaslangic,
         "borc_bitis_tarihi"=>$borc->borcBitis,
@@ -56,6 +57,7 @@ class VeritabaniController extends Controller
       if(empty($paraTuruData)){
         $paraTuruBuyuk=mb_strtoupper($paraTuru->paraTuru,"UTF-8");
         ParaTurleriModel::create([
+          "user_id"=>auth()->user()->user_id,
           "para_turu"=>$paraTuruBuyuk,
         ]);
         return redirect()->back()->with('successMessage', 'Para Türü Başarıyla Eklendi');
@@ -67,6 +69,7 @@ class VeritabaniController extends Controller
     //Alacak Ekleme
     public function alacakEkle(Request $alacak){
       AlacaklarModel::create([
+        "user_id"=>auth()->user()->user_id,
         "cari_hesap_id"=>$alacak->hesapId,
         "alacak_baslangic_tarihi"=>$alacak->alacakBaslangic,
         "alacak_bitis_tarihi"=>$alacak->alacakBitis,
@@ -87,7 +90,7 @@ class VeritabaniController extends Controller
 
     //Borçluları Listeleme
     public function cariHesapListele(){
-      $cariHesaplar=CariHesaplarModel::get();
+      $cariHesaplar=CariHesaplarModel::where('user_id',auth()->user()->user_id)->get();
       return view('pages.cari_hesap_listesi',array('cariHesaplar'=>$cariHesaplar));
   }
 
@@ -96,37 +99,37 @@ class VeritabaniController extends Controller
 
   //Borç Ekle Sayfasında Borçluları ve Para Türlerini listeleme
   public function borcEklePage(){
-    $cariHesaplar=CariHesaplarModel::get();
-    $paraTurleri=ParaTurleriModel::get();
+    $cariHesaplar=CariHesaplarModel::where('user_id',auth()->user()->user_id)->get();
+    $paraTurleri=ParaTurleriModel::where('user_id',auth()->user()->user_id)->get();
     return view('pages.borc_ekle',array('cariHesaplar'=>$cariHesaplar,'paraTurleri'=>$paraTurleri));
     }
 
 
     //Borçları Listeleme
     public function borcListele(){
-      $borclar=BorclarModel::get();
+      $borclar=BorclarModel::where('user_id',auth()->user()->user_id)->get();
       return view('pages.borc_listesi',array('borclar'=>$borclar));
   }
 
 
   //Alacak Ekle Sayfasında Alacaklıları ve Para Türlerini Listeleme
   public function alacakEklePage(){
-    $cariHesaplar=CariHesaplarModel::get();
-    $paraTurleri=ParaTurleriModel::get();
+    $cariHesaplar=CariHesaplarModel::where('user_id',auth()->user()->user_id)->get();
+    $paraTurleri=ParaTurleriModel::where('user_id',auth()->user()->user_id)->get();
     return view('pages.alacak_ekle',array('cariHesaplar'=>$cariHesaplar,'paraTurleri'=>$paraTurleri));
     }
 
 
     //Alacakları Listeleme
     public function alacakListele(){
-      $alacaklar=AlacaklarModel::get();
+      $alacaklar=AlacaklarModel::where('user_id',auth()->user()->user_id)->get();
       return view('pages.alacak_listesi',array('alacaklar'=>$alacaklar));
   }
 
 
   //Para Türlerini Listeleme
   public function paraTurleriListele(){
-    $paraTurleri=ParaTurleriModel::get();
+    $paraTurleri=ParaTurleriModel::where('user_id',auth()->user()->user_id)->get();
     return view('pages.para_turu_listesi',array('paraTurleri'=>$paraTurleri));
 }
 

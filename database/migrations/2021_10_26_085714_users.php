@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ParaTuru extends Migration
+class Users extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class ParaTuru extends Migration
      */
     public function up()
     {
-        Schema::create('ParaTuru', function (Blueprint $table) {
-          $table->increments('para_turu_id');
-          $table->integer('user_id');
-          $table->string('para_turu');
+      Schema::create('Users', function (Blueprint $table) {
+          $table->increments('user_id');
+          $table->string('first_name');
+          $table->string('last_name');
+          $table->string('email');
+          $table->string('password');
           $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ class ParaTuru extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ParaTuru');
+        Schema::dropIfExists('users');
     }
 }

@@ -11,5 +11,5 @@ class ParaTurleriModel extends Model
 
     protected $primaryKey='para_turu_id';
     protected $table='ParaTuru';
-    protected $fillable=['para_turu'];
+    protected $fillable=['user_id','para_turu'];
 }

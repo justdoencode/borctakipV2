@@ -11,7 +11,7 @@ class BorclarModel extends Model
 
     protected $primaryKey='borc_id';
     protected $table='Borclar';
-    protected $fillable=['cari_hesap_id','borc_baslangic_tarihi','borc_bitis_tarihi','para_turu_id','borc_miktari','aciklama'];
+    protected $fillable=['user_id','cari_hesap_id','borc_baslangic_tarihi','borc_bitis_tarihi','para_turu_id','borc_miktari','aciklama'];
 
 
     public function getCariHesap(){

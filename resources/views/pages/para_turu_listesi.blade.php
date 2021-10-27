@@ -34,7 +34,7 @@
                         <td>{{$paraTuru->para_turu_id}}</td>
                         <td>{{$paraTuru->para_turu}}</td>
 
-                        <td><a type="submit" class="btn btn-outline-danger" href="{{route('paraTuruSil',['para_turu_id'=>$paraTuru->para_turu_id])}}">Sil</a></td>
+                        <td><a onclick="return confirm('Para Türü Silinecek!')" type="submit" class="btn btn-outline-danger" href="{{route('paraTuruSil',['para_turu_id'=>$paraTuru->para_turu_id])}}">Sil</a></td>
                         <td><button type="button" class="btn btn-outline-info" >Daha Fazla</button></td>
 
 

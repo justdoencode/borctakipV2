@@ -14,4 +14,16 @@ class GeneralController extends Controller
     public function paraTuruEklePage(){
       return view('pages.para_turu_ekle');
     }
+
+    public function loginPage(){
+      return view('auth.login');
+    }
+
+    public function registerPage(){
+      return view('auth.register');
+    }
+
+    public function dashboardPage(){
+      return view('dashboard');
+    }
 }

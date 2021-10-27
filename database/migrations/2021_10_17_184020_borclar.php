@@ -15,6 +15,7 @@ class Borclar extends Migration
     {
       Schema::create('Borclar', function (Blueprint $table) {
         $table->increments('borc_id');
+        $table->integer('user_id');
         $table->integer('cari_hesap_id');
         $table->date('borc_baslangic_tarihi');
         $table->date('borc_bitis_tarihi');
