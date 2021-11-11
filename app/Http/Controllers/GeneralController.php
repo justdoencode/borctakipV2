@@ -22,8 +22,4 @@ class GeneralController extends Controller
     public function registerPage(){
       return view('auth.register');
     }
-
-    public function dashboardPage(){
-      return view('dashboard');
-    }
 }

@@ -18,9 +18,7 @@ use App\Http\Middleware\isLogin;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-});
+
 
 Route::get('/table', function () {
     return view('pages.table');
@@ -43,9 +41,16 @@ Route::get('/borclistesipage', function () {
 
 ///////GeneralController/////////
 Route::middleware([isAdmin::class])->group(function () {
+
+  Route::get('/', function () {
+      return view('dashboard');
+  });
+
+
   Route::get('/carihesapeklepage',[GeneralController::class,'cariHesapEklePage'])->name('cariHesapEklePage');
   Route::get('/paraturueklepage',[GeneralController::class,'paraTuruEklePage'])->name('paraTuruEklePage');
-  Route::get('/dashboardPage',[GeneralController::class,'dashboardPage'])->name('dashboardPage');
+  Route::get('/dashboardPage',[VeritabaniController::class,'dashboardPage'])->name('dashboardPage');
+
 
 
   ///////VeritabaniController/////////
@@ -91,7 +96,7 @@ Route::middleware([isLogin::class])->group(function(){
 
   ///////AuthController///////
   Route::post('/login',[AuthController::class,'login'])->name('login');//Login Olma İşlemi
-  Route::post('\register',[AuthController::class,'register'])->name('register');//Kullanıcı Kaydı
+  Route::post('/register',[AuthController::class,'register'])->name('register');//Kullanıcı Kaydı
 });
 
 

@@ -87,6 +87,82 @@ class VeritabaniController extends Controller
 
     ///////LİSTELEME İŞLEMLERİ///////
 
+    //Dashboard Sayfasına Verileri Listeleme
+    public function dashboardPage(){
+      $paraTurleri=ParaTurleriModel::where('user_id',auth()->user()->user_id);
+
+      //Para Türlei Id lerini alma
+      $paraTuruIds=array();
+      foreach ($paraTurleri as $paraTuru) {
+        array_push($paraTuruIds,$paraTuru->para_turu_id);
+      }
+
+
+      $toplamBorclar=array();
+      $borclar=BorclarModel::where('user_id',auth()->user()->user_id)->get();
+
+      //Borç Toplamlarını Bulma
+      foreach ($paraTuruIds as $id) {//Para Türlerini gezer
+        $toplamBorc=0;
+        foreach ($borclar as $borc) {//Borçları Gezer
+          if($borc->para_turu_id==$id){//Gelen Para Türüne Göre Borcu Bulur
+            $toplamBorc+=$borc->borc_miktari;//para türüne göre borçları toplar
+          }
+        }
+        array_push($toplamBorclar,$toplamBorc);
+      }
+
+      return view('dashboard',array('toplamBorclar'=>$toplamBorclar,'paraTurleri'=>$paraTurleri));
+    }
+
+
+    //Cari Hesap Detay Sayfası
+    public function cariHesapDetayListele(int $cari_hesap_id){
+      $paraTurleri=ParaTurleriModel::get();
+
+      //Para Türlei Id lerini alma
+      $paraTuruIds=array();
+      foreach ($paraTurleri as $paraTuru) {
+        array_push($paraTuruIds,$paraTuru->para_turu_id);
+      }
+
+
+      $toplamBorclar=array();
+      $borclar=BorclarModel::where('cari_hesap_id', $cari_hesap_id)->get();
+      //Borç Toplamlarını Bulma
+      foreach ($paraTuruIds as $id) {//Para Türlerini gezer
+        $toplamBorc=0;
+        foreach ($borclar as $borc) {//Borçları Gezer
+          if($borc->para_turu_id==$id){//Gelen Para Türüne Göre Borcu Bulur
+            $toplamBorc+=$borc->borc_miktari;//para türüne göre borçları toplar
+          }
+        }
+        array_push($toplamBorclar,$toplamBorc);
+      }
+
+      //Alacak Toplamlarını Bulma
+      $toplamAlacaklar=array();
+      $alacaklar=AlacaklarModel::where('cari_hesap_id', $cari_hesap_id)->get();
+
+      foreach ($paraTuruIds as $id) {//Para Türlerini gezer
+        $toplamAlacak=0;
+        foreach ($alacaklar as $alacak) {//Alacakları Gezer
+          if($alacak->para_turu_id==$id){//Gelen Para Türüne Göre Alacağı Bulur
+            $toplamAlacak+=$alacak->alacak_miktari;//para türüne göre alacakları toplar
+          }
+        }
+        array_push($toplamAlacaklar,$toplamAlacak);
+      }
+      $cariHesap=CariHesaplarModel::find($cari_hesap_id);
+
+      $borclar=BorclarModel::Where('cari_hesap_id',$cari_hesap_id)->get();
+      $alacaklar=AlacaklarModel::Where('cari_hesap_id',$cari_hesap_id)->get();
+
+      return view('pages.cari_hesap_detay',array('cariHesap'=>$cariHesap,
+      'paraTurleri'=>$paraTurleri,'toplamBorclar'=>$toplamBorclar,
+      'toplamAlacaklar'=>$toplamAlacaklar,'alacaklar'=>$alacaklar,'borclar'=>$borclar));
+    }
+
 
     //Borçluları Listeleme
     public function cariHesapListele(){
@@ -133,54 +209,6 @@ class VeritabaniController extends Controller
     return view('pages.para_turu_listesi',array('paraTurleri'=>$paraTurleri));
 }
 
-
-
-
-
-
-//Cari Hesap Detay Sayfası
-public function cariHesapDetayListele(int $cari_hesap_id){
-  $paraTurleri=ParaTurleriModel::get();
-
-  //Para Türlei Id lerini alma
-  $paraTuruIds=array();
-  foreach ($paraTurleri as $paraTuru) {
-    array_push($paraTuruIds,$paraTuru->para_turu_id);
-  }
-  $toplamBorclar=array();
-  $borclar=BorclarModel::where('cari_hesap_id', $cari_hesap_id)->get();
-  //Borç Toplamlarını Bulma
-  foreach ($paraTuruIds as $id) {//Para Türlerini gezer
-    $toplamBorc=0;
-    foreach ($borclar as $borc) {//Borçları Gezer
-      if($borc->para_turu_id==$id){//Gelen Para Türüne Göre Borcu Bulur
-        $toplamBorc+=$borc->borc_miktari;//para türüne göre borçları toplar
-      }
-    }
-    array_push($toplamBorclar,$toplamBorc);
-  }
-  //Alacak Toplamlarını Bulma
-  $toplamAlacaklar=array();
-  $alacaklar=AlacaklarModel::where('cari_hesap_id', $cari_hesap_id)->get();
-
-  foreach ($paraTuruIds as $id) {//Para Türlerini gezer
-    $toplamAlacak=0;
-    foreach ($alacaklar as $alacak) {//Alacakları Gezer
-      if($alacak->para_turu_id==$id){//Gelen Para Türüne Göre Alacağı Bulur
-        $toplamAlacak+=$alacak->alacak_miktari;//para türüne göre alacakları toplar
-      }
-    }
-    array_push($toplamAlacaklar,$toplamAlacak);
-  }
-  $cariHesap=CariHesaplarModel::find($cari_hesap_id);
-
-  $borclar=BorclarModel::Where('cari_hesap_id',$cari_hesap_id)->get();
-  $alacaklar=AlacaklarModel::Where('cari_hesap_id',$cari_hesap_id)->get();
-
-  return view('pages.cari_hesap_detay',array('cariHesap'=>$cariHesap,
-  'paraTurleri'=>$paraTurleri,'toplamBorclar'=>$toplamBorclar,
-  'toplamAlacaklar'=>$toplamAlacaklar,'alacaklar'=>$alacaklar,'borclar'=>$borclar));
-}
 
 
 
